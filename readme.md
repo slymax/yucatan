@@ -7,12 +7,12 @@ Yucatan is a tiny framework that allows you to run servers locally using Deno an
 import { serve, schedule } from "https://slymax.com/yucatan/yucatan.js";
 
 serve(request => {
-    // runs on a worker request
-    return new Response("Hello World!");
+  // runs on a worker request
+  return new Response("Hello World!");
 });
 
 schedule(event => {
-    // runs when a worker is scheduled
+  // runs when a worker is scheduled
 });
 ```
 

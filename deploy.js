@@ -1,12 +1,7 @@
-import { resolve } from "https://deno.land/std/path/mod.ts";
-import { bundle } from "https://deno.land/x/emit/mod.ts";
+import { bundle } from "https://slymax.com/scripts/bundle.js";
 
-const file_url = Deno.args[0];
-
-const source = file_url.startsWith("https://") ? file_url : resolve(file_url);
-const { code } = await bundle(source);
-
-const result = code + "\nexport default { fetch: _yucatan.fetch, scheduled: _yucatan.scheduled };";
+const code = await bundle(Deno.args[0]);
+const result = code + "export default { fetch: _yucatan.fetch, scheduled: _yucatan.scheduled };";
 
 localStorage.account_id = localStorage.account_id || prompt("Cloudflare Account ID:");
 localStorage.api_key = localStorage.api_key || prompt("Cloudflare API Key:");
@@ -25,19 +20,19 @@ const body = new FormData();
 
 body.append("script.js", file);
 body.append("metadata", JSON.stringify({
-    main_module: "script.js"
+  main_module: "script.js"
 }));
 
 console.log("Deploying...");
 
 try {
-    await fetch(cf_url, {
-        "method": "PUT",
-        "headers": {
-            "Authorization": "Bearer " + api_key
-        },
-        body
-    });
+  await fetch(cf_url, {
+    "method": "PUT",
+    "headers": {
+      "Authorization": "Bearer " + api_key
+    },
+    body
+  });
 } catch (error) {
-    console.error(error);
+  console.error(error);
 }
