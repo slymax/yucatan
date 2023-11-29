@@ -25,5 +25,5 @@ deno run index.js
 Deploy to Cloudflare Workers:
 
 ```sh
-deno run https://slymax.com/yucatan/deploy.js index.js
+deno run -A https://slymax.com/yucatan/deploy.js index.js
 ```
