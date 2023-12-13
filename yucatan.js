@@ -1,7 +1,10 @@
 const _yucatan = {};
 
 const serve = handler => {
-  globalThis.Deno && Deno.serve(handler);
+  if (globalThis.Deno) {
+    const env = Deno.env.toObject();
+    Deno.serve(request => handler(request, env));
+  }
   _yucatan.fetch = handler;
 };
 
